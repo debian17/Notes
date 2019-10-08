@@ -3,9 +3,9 @@ package github.debian17.notes.ui.notes.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import github.debian17.domain.model.Note
 import github.debian17.notes.R
 import github.debian17.notes.base.recycler.BaseAdapter
-import github.debian17.notes.model.Note
 
 class NotesAdapter(context: Context, private val notesListener: NotesListener) :
     BaseAdapter<Note, NoteViewHolder>() {

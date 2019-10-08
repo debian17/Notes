@@ -3,8 +3,8 @@ package github.debian17.notes.ui.notes.adapter
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import github.debian17.domain.model.Note
 import github.debian17.notes.R
-import github.debian17.notes.model.Note
 
 class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,4 +1,4 @@
-package github.debian17.notes.model
+package github.debian17.domain.model
 
 import org.threeten.bp.LocalDateTime
 

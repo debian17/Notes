@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import github.debian17.notes.App
 
 import github.debian17.notes.R
+import github.debian17.notes.base.di.ViewModelInjector
 import github.debian17.notes.base.mvvm.BaseFragment
-import javax.inject.Inject
 
 class NotesFragment : BaseFragment() {
 
@@ -19,9 +18,6 @@ class NotesFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: NotesViewModel
-
-    @Inject
-    lateinit var viewModelFactory: NotesViewModel.NotesViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +28,8 @@ class NotesFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(NotesViewModel::class.java)
+
+        viewModel = ViewModelInjector.provideNotesViewModel(this)
 
         viewModel.observeLoading(viewLifecycleOwner, Observer {
 
@@ -42,10 +39,6 @@ class NotesFragment : BaseFragment() {
 
         })
 
-    }
-
-    override fun inject() {
-        (activity?.application as App).getViewModelComponent().inject(this)
     }
 
 }

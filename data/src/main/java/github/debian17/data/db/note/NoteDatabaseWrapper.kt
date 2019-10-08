@@ -1,7 +1,7 @@
 package github.debian17.data.db.note
 
 import github.debian17.data.db.model.NoteModel
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 class NoteDatabaseWrapper(database: RoomNoteDatabase) : NoteDatabase {
 
@@ -19,7 +19,7 @@ class NoteDatabaseWrapper(database: RoomNoteDatabase) : NoteDatabase {
         noteDao.delete(note)
     }
 
-    override fun getAll(): Single<List<NoteModel>> {
+    override fun getAll(): Flowable<List<NoteModel>> {
         return noteDao.getAll()
     }
 

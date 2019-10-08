@@ -1,4 +1,4 @@
-package github.debian17.notes.mapper
+package github.debian17.domain.mapper
 
 interface Mapper<A, B> {
 

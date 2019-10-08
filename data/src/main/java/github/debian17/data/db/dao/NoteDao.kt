@@ -2,7 +2,7 @@ package github.debian17.data.db.dao
 
 import androidx.room.*
 import github.debian17.data.db.model.NoteModel
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 @Dao
 interface NoteDao {
@@ -17,6 +17,6 @@ interface NoteDao {
     fun delete(note: NoteModel)
 
     @Query("SELECT * FROM Notes")
-    fun getAll(): Single<List<NoteModel>>
+    fun getAll(): Flowable<List<NoteModel>>
 
 }

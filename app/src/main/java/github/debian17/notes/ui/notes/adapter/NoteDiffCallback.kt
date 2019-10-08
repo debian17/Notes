@@ -1,7 +1,7 @@
 package github.debian17.notes.ui.notes.adapter
 
+import github.debian17.domain.model.Note
 import github.debian17.notes.base.recycler.BaseDiffCallback
-import github.debian17.notes.model.Note
 
 class NoteDiffCallback(oldList: List<Note>, newList: List<Note>) :
     BaseDiffCallback<Note>(oldList, newList) {
