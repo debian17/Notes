@@ -1,13 +1,12 @@
 package github.debian17.data.db.note
 
 import github.debian17.data.db.model.NoteModel
-import io.reactivex.Flowable
 
 class NoteDatabaseWrapper(database: RoomNoteDatabase) : NoteDatabase {
 
     private val noteDao = database.getNoteDao()
 
-    override fun insert(note: NoteModel) {
+    override suspend fun insert(note: NoteModel) {
         noteDao.insert(note)
     }
 
@@ -19,7 +18,7 @@ class NoteDatabaseWrapper(database: RoomNoteDatabase) : NoteDatabase {
         noteDao.delete(note)
     }
 
-    override fun getAll(): Flowable<List<NoteModel>> {
+    override suspend fun getAll(): List<NoteModel> {
         return noteDao.getAll()
     }
 

@@ -13,12 +13,12 @@ data class NoteModel(
     val title: String,
     val content: String,
     @TypeConverters(LocalDateTimeConverter::class)
-    val date: LocalDateTime,
+    val dateOfCreation: LocalDateTime,
     val isDeleted: Boolean,
     @TypeConverters(ImagesConverter::class)
     val images: List<String>,
     @TypeConverters(RecordsConverter::class)
-    val records: String?
+    val records: List<String>
 ) {
 
     @PrimaryKey(autoGenerate = true)

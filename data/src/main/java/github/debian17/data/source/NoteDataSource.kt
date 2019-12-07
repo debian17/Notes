@@ -1,13 +1,19 @@
 package github.debian17.data.source
 
 import github.debian17.data.db.model.NoteModel
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import org.threeten.bp.LocalDateTime
 
 interface NoteDataSource {
 
-    fun getNotes(): Flowable<List<NoteModel>>
+    suspend fun getNotes(): List<NoteModel>
 
-    fun addNote(note: NoteModel): Completable
+    suspend fun addNote(
+        title: String,
+        content: String,
+        dateOfCreation: LocalDateTime,
+        isDeleted: Boolean,
+        images: List<String>?,
+        records: List<String>?
+    )
 
 }

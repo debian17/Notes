@@ -11,6 +11,7 @@ import github.debian17.data.source.NoteDataSource
 import github.debian17.domain.mapper.Mapper
 import github.debian17.domain.mapper.NoteMapper
 import github.debian17.domain.model.Note
+import github.debian17.domain.notes.AddNote
 import github.debian17.domain.notes.GetNotes
 
 object NotesInjector {
@@ -27,10 +28,19 @@ object NotesInjector {
         noteDatabase = NoteDatabaseWrapper(roomNoteDatabase)
     }
 
+    private fun provideNoteDataSource(): NoteDataSource {
+        return NoteRepository(noteDatabase)
+    }
+
     fun provideGetNotes(): GetNotes {
-        val noteDataSource: NoteDataSource = NoteRepository(noteDatabase)
+        val noteDataSource: NoteDataSource = provideNoteDataSource()
         val mapper: Mapper<NoteModel, Note> = NoteMapper()
         return GetNotes(noteDataSource, mapper)
+    }
+
+    fun provideAddNote(): AddNote {
+        val noteDataSource: NoteDataSource = provideNoteDataSource()
+        return AddNote(noteDataSource)
     }
 
 }

@@ -1,47 +1,81 @@
 package github.debian17.notes.ui.notes
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import github.debian17.domain.model.Note
-import github.debian17.notes.base.extension.observeOnUI
-import github.debian17.notes.base.extension.subscribeOnIO
+import github.debian17.domain.notes.AddNote
 import github.debian17.notes.base.mvvm.BaseViewModel
 import github.debian17.domain.notes.GetNotes
+import kotlinx.coroutines.*
+import org.threeten.bp.LocalDateTime
+import java.lang.Exception
 
 class NotesViewModel(
-    private val getNotes: GetNotes
+    private val getNotes: GetNotes,
+    private val addNote: AddNote
 ) : BaseViewModel() {
 
     private val notes = MutableLiveData<List<Note>>()
 
     init {
-        isLoading.value = true
-        val params = GetNotes.Params()
-        unsubscribeOnClear(
-            getNotes.execute(params)
-                .subscribeOnIO()
-                .observeOnUI()
-                .subscribe(this::onNotesLoaded, this::onLoadingError)
-        )
+        getNotes()
     }
 
-    private fun onNotesLoaded(notes: List<Note>) {
-        isLoading.value = false
-        this.notes.value = notes
+    private fun getNotes() {
+        viewModelScope.launch {
+            isLoading.value = true
+            try {
+                val params = GetNotes.Params()
+                val loadedNotes = getNotes.execute(params)
+                notes.value = loadedNotes
+            } catch (e: Exception) {
+                isError.value = e
+            } finally {
+                isLoading.value = false
+            }
+        }
     }
 
-    private fun onLoadingError(throwable: Throwable) {
+    fun addNote(
+        title: String,
+        content: String,
+        images: List<String>?,
+        records: List<String>?
+    ) {
+        viewModelScope.launch {
+            isLoading.value = true
+            try {
+                val params = AddNote.Params(
+                    title = title,
+                    content = content,
+                    dateOfCreation = LocalDateTime.now(),
+                    isDeleted = false,
+                    images = images,
+                    records = records
+                )
+                addNote.execute(params)
+            } catch (e: Exception) {
+                isError.value = e
+            } finally {
+                isLoading.value = false
+            }
+        }
 
+        getNotes()
+
+    }
+
+    fun observeNotes(owner: LifecycleOwner, observer: Observer<List<Note>>) {
+        notes.observe(owner, observer)
     }
 
     @Suppress("UNCHECKED_CAST")
     class NotesViewModelFactory(
-        private val getNotes: GetNotes
+        private val getNotes: GetNotes,
+        private val addNote: AddNote
     ) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return NotesViewModel(getNotes) as T
+            return NotesViewModel(getNotes, addNote) as T
         }
     }
 

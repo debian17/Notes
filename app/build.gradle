@@ -27,9 +27,9 @@ android {
 }
 
 def lifecycle = '2.1.0'
-def recycler = '1.1.0-beta04'
+def recycler = '1.1.0'
 def cardview = '1.0.0'
-def material = '1.1.0-alpha10'
+def material = '1.2.0-alpha02'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

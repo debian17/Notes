@@ -2,13 +2,12 @@ package github.debian17.data.db.dao
 
 import androidx.room.*
 import github.debian17.data.db.model.NoteModel
-import io.reactivex.Flowable
 
 @Dao
 interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(note: NoteModel)
+    suspend fun insert(note: NoteModel)
 
     @Update
     fun update(note: NoteModel)
@@ -17,6 +16,6 @@ interface NoteDao {
     fun delete(note: NoteModel)
 
     @Query("SELECT * FROM Notes")
-    fun getAll(): Flowable<List<NoteModel>>
+    suspend fun getAll(): List<NoteModel>
 
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e4373224c4d1e91d9b07d2e80acca0cf",
+    "identityHash": "d3c81e56ff7ec3a8291430a7cc75f62b",
     "entities": [
       {
         "tableName": "Notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `date` TEXT NOT NULL, `isDeleted` INTEGER NOT NULL, `images` TEXT NOT NULL, `records` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `dateOfCreation` TEXT NOT NULL, `isDeleted` INTEGER NOT NULL, `images` TEXT NOT NULL, `records` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,8 +27,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "dateOfCreation",
+            "columnName": "dateOfCreation",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -48,7 +48,7 @@
             "fieldPath": "records",
             "columnName": "records",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -64,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e4373224c4d1e91d9b07d2e80acca0cf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd3c81e56ff7ec3a8291430a7cc75f62b')"
     ]
   }
 }
