@@ -14,8 +14,8 @@ class NoteDatabaseWrapper(database: RoomNoteDatabase) : NoteDatabase {
         noteDao.update(note)
     }
 
-    override fun delete(note: NoteModel) {
-        noteDao.delete(note)
+    override suspend fun delete(id: Int) {
+        noteDao.delete(id)
     }
 
     override suspend fun getAll(): List<NoteModel> {

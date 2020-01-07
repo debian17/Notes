@@ -60,8 +60,6 @@ class NotesViewModel(
             }
         }
 
-        getNotes()
-
     }
 
     fun observeNotes(owner: LifecycleOwner, observer: Observer<List<Note>>) {

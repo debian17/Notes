@@ -8,7 +8,7 @@ interface NoteDatabase {
 
     fun update(note: NoteModel)
 
-    fun delete(note: NoteModel)
+    suspend fun delete(id: Int)
 
     suspend fun getAll(): List<NoteModel>
 

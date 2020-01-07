@@ -12,6 +12,7 @@ import github.debian17.domain.mapper.Mapper
 import github.debian17.domain.mapper.NoteMapper
 import github.debian17.domain.model.Note
 import github.debian17.domain.notes.AddNote
+import github.debian17.domain.notes.DeleteNote
 import github.debian17.domain.notes.GetNotes
 
 object NotesInjector {
@@ -41,6 +42,11 @@ object NotesInjector {
     fun provideAddNote(): AddNote {
         val noteDataSource: NoteDataSource = provideNoteDataSource()
         return AddNote(noteDataSource)
+    }
+
+    fun provideDeleteNote(): DeleteNote {
+        val noteDataSource: NoteDataSource = provideNoteDataSource()
+        return DeleteNote(noteDataSource)
     }
 
 }

@@ -30,4 +30,8 @@ class NoteRepository(private val database: NoteDatabase) : NoteDataSource {
         return database.insert(noteModel)
     }
 
+    override suspend fun deleteNote(id: Int) {
+        database.delete(id)
+    }
+
 }

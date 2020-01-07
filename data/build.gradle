@@ -34,7 +34,7 @@ android {
 
 }
 
-def room = '2.2.2'
+def room = '2.2.3'
 def threetenabp = '1.2.1'
 
 dependencies {

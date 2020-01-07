@@ -1,7 +1,6 @@
 package github.debian17.notes.ui.notes
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +20,6 @@ class NotesFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: NotesViewModel
-
-    private val addNoteHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,15 +48,6 @@ class NotesFragment : BaseFragment() {
         viewModel.observeNotes(viewLifecycleOwner, Observer { notes ->
             Log.d("MyTag", "Notes count = ${notes.size}")
         })
-
-        addNoteHandler.postDelayed({
-            viewModel.addNote(
-                title = "Title",
-                content = "Content",
-                images = null,
-                records = null
-            )
-        }, 5000L)
 
     }
 

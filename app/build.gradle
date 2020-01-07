@@ -7,12 +7,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "github.debian17.notes"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -29,7 +29,7 @@ android {
 def lifecycle = '2.1.0'
 def recycler = '1.1.0'
 def cardview = '1.0.0'
-def material = '1.2.0-alpha02'
+def material = '1.2.0-alpha03'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

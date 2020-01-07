@@ -16,4 +16,6 @@ interface NoteDataSource {
         records: List<String>?
     )
 
+    suspend fun deleteNote(id: Int)
+
 }
