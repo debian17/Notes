@@ -1,6 +1,12 @@
 package github.debian17.notes.ui.notes
 
+import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.*
+import github.debian17.domain.base.CompletableCallback
+import github.debian17.domain.base.ResultCallback
+import github.debian17.domain.base.ResultFunc2
+import github.debian17.domain.base.TaskExecutor
 import github.debian17.domain.model.Note
 import github.debian17.domain.notes.AddNote
 import github.debian17.notes.base.mvvm.BaseViewModel
@@ -8,6 +14,7 @@ import github.debian17.domain.notes.GetNotes
 import kotlinx.coroutines.*
 import org.threeten.bp.LocalDateTime
 import java.lang.Exception
+import java.util.concurrent.Callable
 
 class NotesViewModel(
     private val getNotes: GetNotes,
@@ -21,18 +28,83 @@ class NotesViewModel(
     }
 
     private fun getNotes() {
-        viewModelScope.launch {
-            isLoading.value = true
-            try {
-                val params = GetNotes.Params()
-                val loadedNotes = getNotes.execute(params)
-                notes.value = loadedNotes
-            } catch (e: Exception) {
-                isError.value = e
-            } finally {
-                isLoading.value = false
-            }
-        }
+        isLoading.value = true
+
+//        val start = System.currentTimeMillis()
+//        val tasks = TaskExecutor.invokeAll(
+//            Callable<Int> {
+//                Thread.sleep(8000L)
+//                Log.e("MyTag", "Int task completed")
+//                return@Callable 21
+//            }, Callable<String> {
+//                Thread.sleep(3000L)
+//                Log.e("MyTag", "String task completed")
+//                return@Callable "Kek"
+//            }, object : ResultFunc2<Int, String> {
+//                override fun onSuccess(t1: Int, t2: String) {
+//                    val end = System.currentTimeMillis()
+//                    val result = (end - start) / 1000L
+//                    Log.e("MyTag", "TIME = $result")
+//                    Log.e("MyTag", "onSuccess: t1 = $t1, t2 = $t2")
+//                }
+//
+//                override fun onError(t: Throwable) {
+//                    Log.e("MyTag", "onError = ${t.message}")
+//                }
+//            })
+
+//        val task1 = TaskExecutor.execute(Callable<Int> {
+//            Log.e("MyTag", "execute thread = ${Thread.currentThread().name}")
+//            Thread.sleep(5000L)
+//            return@Callable 21
+//        }, object : ResultCallback<Int> {
+//            override fun onSuccess(result: Int) {
+//                isLoading.value = false
+//                Log.e("MyTag", "onSuccess thread = ${Thread.currentThread().name}")
+//                Log.e("MyTag", "onSuccess result = $result")
+//            }
+//
+//            override fun onError(t: Throwable) {
+//                isLoading.value = false
+//                Log.e("MyTag", "onError thread = ${Thread.currentThread().name}")
+//                Log.e("MyTag", "error = ${t.message}")
+//            }
+//        })
+
+//        val task2 = TaskExecutor.execute(Runnable {
+//            Log.e("MyTag", "execute thread = ${Thread.currentThread().name}")
+//            Thread.sleep(5000L)
+//        }, object : CompletableCallback {
+//            override fun onComplete() {
+//                isLoading.value = false
+//                Log.e("MyTag", "onSuccess thread = ${Thread.currentThread().name}")
+//                Log.e("MyTag", "onComplete")
+//            }
+//
+//            override fun onError(t: Throwable) {
+//                isLoading.value = false
+//                Log.e("MyTag", "onError thread = ${Thread.currentThread().name}")
+//                Log.e("MyTag", "error = ${t.message}")
+//            }
+//        })
+
+//        Handler().postDelayed({
+//            tasks?.cancel(true)
+//            Log.e("MyTag", "task.isCancelled = ${tasks?.isCancelled()}")
+//        }, 2000L)
+
+//        viewModelScope.launch {
+//            isLoading.value = true
+//            try {
+//                val params = GetNotes.Params()
+//                val loadedNotes = getNotes.execute(params)
+//                notes.value = loadedNotes
+//            } catch (e: Exception) {
+//                isError.value = e
+//            } finally {
+//                isLoading.value = false
+//            }
+//        }
     }
 
     fun addNote(
