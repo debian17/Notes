@@ -2,18 +2,22 @@ package github.debian17.domain.base
 
 import java.util.concurrent.Future
 
-class CancelableTask(private val future: Future<*>) {
+class CancelableTask(private val future: List<Future<*>>) {
 
     fun cancel(mayInterruptIfRunning: Boolean) {
-        future.cancel(mayInterruptIfRunning)
+        future.forEach {
+            if (!it.isDone) {
+                it.cancel(mayInterruptIfRunning)
+            }
+        }
     }
 
     fun isCancelled(): Boolean {
-        return future.isCancelled
+        return future.all { it.isCancelled }
     }
 
     fun isDone(): Boolean {
-        return future.isDone
+        return future.all { it.isDone }
     }
 
 }

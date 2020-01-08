@@ -31,10 +31,11 @@ class NotesViewModel(
         isLoading.value = true
 
 //        val start = System.currentTimeMillis()
-//        val tasks = TaskExecutor.invokeAll(
+//        val tasks = TaskExecutor.executeAll(
 //            Callable<Int> {
 //                Thread.sleep(8000L)
 //                Log.e("MyTag", "Int task completed")
+//                //throw RuntimeException("Test")
 //                return@Callable 21
 //            }, Callable<String> {
 //                Thread.sleep(3000L)
@@ -52,10 +53,12 @@ class NotesViewModel(
 //                    Log.e("MyTag", "onError = ${t.message}")
 //                }
 //            })
+//        runningTasks.add(tasks)
 
 //        val task1 = TaskExecutor.execute(Callable<Int> {
 //            Log.e("MyTag", "execute thread = ${Thread.currentThread().name}")
 //            Thread.sleep(5000L)
+//            //throw RuntimeException("Test")
 //            return@Callable 21
 //        }, object : ResultCallback<Int> {
 //            override fun onSuccess(result: Int) {
@@ -67,9 +70,10 @@ class NotesViewModel(
 //            override fun onError(t: Throwable) {
 //                isLoading.value = false
 //                Log.e("MyTag", "onError thread = ${Thread.currentThread().name}")
-//                Log.e("MyTag", "error = ${t.message}")
+//                Log.e("MyTag", "error = $t")
 //            }
 //        })
+//        runningTasks.add(task1)
 
 //        val task2 = TaskExecutor.execute(Runnable {
 //            Log.e("MyTag", "execute thread = ${Thread.currentThread().name}")
@@ -87,10 +91,11 @@ class NotesViewModel(
 //                Log.e("MyTag", "error = ${t.message}")
 //            }
 //        })
+//        runningTasks.add(task2)
 
 //        Handler().postDelayed({
-//            tasks?.cancel(true)
-//            Log.e("MyTag", "task.isCancelled = ${tasks?.isCancelled()}")
+//            tasks.cancel(true)
+//            Log.e("MyTag", "task.isCancelled = ${tasks.isCancelled()}")
 //        }, 2000L)
 
 //        viewModelScope.launch {
