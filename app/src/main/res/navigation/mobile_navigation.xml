@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_notes">
+
+    <fragment
+        android:id="@+id/nav_notes"
+        android:name="github.debian17.notes.ui.notes.NotesFragment"
+        tools:layout="@layout/notes_fragment" />
+
+    <fragment
+        android:id="@+id/nav_reminders"
+        android:name="github.debian17.notes.ui.reminders.RemindersFragment"
+        tools:layout="@layout/reminders_fragment" />
+
+
+</navigation>

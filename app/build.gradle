@@ -26,10 +26,14 @@ android {
     }
 }
 
+def appcompat = '1.1.0'
+def constraintlayout = '1.1.3'
 def lifecycle = '2.1.0'
 def recycler = '1.1.0'
+def adapterdelegates = '4.2.0'
 def cardview = '1.0.0'
-def material = '1.2.0-alpha03'
+def material = '1.0.0'
+def navigation = '2.1.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -37,14 +41,19 @@ dependencies {
 
     implementation project(':domain')
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
 
     implementation "androidx.recyclerview:recyclerview:$recycler"
+    implementation "com.hannesdorfmann:adapterdelegates4:$adapterdelegates"
+
     implementation "androidx.cardview:cardview:$cardview"
     implementation "com.google.android.material:material:$material"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

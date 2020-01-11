@@ -1,25 +1,27 @@
 package github.debian17.notes.ui.notes
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import github.debian17.notes.R
 import github.debian17.notes.base.di.ViewModelInjector
-import github.debian17.notes.base.extension.hide
-import github.debian17.notes.base.extension.show
 import github.debian17.notes.base.mvvm.BaseFragment
 import kotlinx.android.synthetic.main.notes_fragment.*
 
 class NotesFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = NotesFragment()
-    }
-
     private lateinit var viewModel: NotesViewModel
+
+    override val containerView: FrameLayout
+        get() = flMain
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +37,21 @@ class NotesFragment : BaseFragment() {
 
         viewModel.observeLoading(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
-                pbLoading.show()
+                switchToLoading()
+
+                Handler().postDelayed({
+                    switchToMain()
+
+                    Handler().postDelayed({
+                        switchToLoading()
+                    }, 10000L)
+
+
+                }, 5000L)
+
+                //pbLoading.show()
             } else {
-                pbLoading.hide()
+                //pbLoading.hide()
             }
         })
 
@@ -48,6 +62,10 @@ class NotesFragment : BaseFragment() {
         viewModel.observeNotes(viewLifecycleOwner, Observer { notes ->
             Log.d("MyTag", "Notes count = ${notes.size}")
         })
+
+    }
+
+    override fun retry() {
 
     }
 
